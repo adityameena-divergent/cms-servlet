@@ -8,9 +8,10 @@ import com.divergentsl.cms.entity.Patient;
 
 public class PatientServiceImpl implements PatientService {
 
+	BaseDAO<Patient> patientDao = new PatientDaoImpl();
+	
 	public void insert(int patientId, String patientName, String gender, int age, int weight, int contactNumber, String address) {
 		
-		BaseDAO<Patient> patientDao = new PatientDaoImpl();
 		
 		Patient patient = new Patient();
 		patient.setId(patientId);
@@ -26,9 +27,16 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	public List<Patient> findAll() {
-		BaseDAO<Patient> patientDao = new PatientDaoImpl();
 		
 		return patientDao.findAll();
+	}
+
+	public Patient find(int patientId) {
+		return patientDao.find(patientId);
+	}
+
+	public void delete(int patientId) {
+		patientDao.remove(patientId);
 	}
 
 	

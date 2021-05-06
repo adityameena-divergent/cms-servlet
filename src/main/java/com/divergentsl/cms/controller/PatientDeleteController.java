@@ -1,7 +1,6 @@
 package com.divergentsl.cms.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,32 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.divergentsl.cms.entity.Patient;
 import com.divergentsl.cms.service.PatientService;
 import com.divergentsl.cms.service.PatientServiceImpl;
 
-@WebServlet("/patientList")
-public class PatientListController extends HttpServlet {
 
+@WebServlet("/patientDelete")
+public class PatientDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	public PatientListController() {
+       
+    public PatientDeleteController() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		int patientId = Integer.parseInt(request.getParameter("id"));
 		
 		PatientService patientService = new PatientServiceImpl();
 		
-		List<Patient> allPatient = patientService.findAll();
-		request.setAttribute("allPatient", allPatient);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("PatientList.jsp");
-		
-		dispatcher.forward(request, response);
+		patientService.delete(patientId);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("patientList");
+//		dispatcher.forward(request, response);
+		response.sendRedirect("patientList");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
 
 }

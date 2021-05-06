@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@page isELIgnored="false" %>
 <%@ page import="java.util.List"%>
 <%@ page import="com.divergentsl.cms.entity.Patient"%>
 
@@ -52,11 +52,11 @@
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#">Insert</a></li>
+							aria-current="page" href="PatientInsert.jsp">Insert</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="#">Search</a></li>
 
-						<li class="nav-item"><a class="nav-link" href="#">List
+						<li class="nav-item"><a class="nav-link" href="patientList">List
 								All</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="#">Update</a></li>
@@ -88,13 +88,14 @@
 					<th scope="col">Weight</th>
 					<th scope="col">Contact Number</th>
 					<th scope="col">Address</th>
+					<th scope="col">Delete</th>
 				</tr>
 			</thead>
 			<tbody>
-			
-			<% List<Patient> patientList = (List)request.getAttribute("allPatient"); %>
+				
+				
 
-				<c:forEach items="${patientList}" var="patient">
+				<c:forEach items="${allPatient}" var="patient">
 					<tr>
 						<td scope="row"><c:out value="${patient.id}" /></td>
 						<td><c:out value="${patient.name}" /></td>
@@ -104,6 +105,8 @@
 						<td><c:out value="${patient.weight}" /></td>
 						<td><c:out value="${patient.contactNumber}" /></td>
 						<td><c:out value="${patient.address}" /></td>
+						<td><a href="patientDelete?id=${patient.id}"
+							class="btn btn-danger" type="button">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

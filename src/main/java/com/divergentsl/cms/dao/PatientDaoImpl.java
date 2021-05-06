@@ -21,7 +21,10 @@ public class PatientDaoImpl implements BaseDAO<Patient> {
 	}
 
 	public Patient find(int id) {
-		return null;
+		EntityManager entityManager = EntityManagerUtility.getEntityManager();
+		Patient patient = entityManager.find(Patient.class, id);
+		entityManager.close();
+		return patient;
 	}
 
 	public List<Patient> findAll() {
@@ -37,9 +40,15 @@ public class PatientDaoImpl implements BaseDAO<Patient> {
 		
 	}
 
-	public void remove(int id) {
-		// TODO Auto-generated method stub
+	public void remove(int patientId) {
+		EntityManager entityManager = EntityManagerUtility.getEntityManager();
+		entityManager.getTransaction().begin();
 		
+		Patient patient = entityManager.find(Patient.class, patientId);
+		if (patient != null)
+			entityManager.remove(patient);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 }

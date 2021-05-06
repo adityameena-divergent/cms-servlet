@@ -11,4 +11,8 @@ public interface PatientService {
 	
 	public List<Patient> findAll();
 
+	public Patient find(int patientId);
+	
+	public void delete(int patientId);
+	
 }
